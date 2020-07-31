@@ -82,4 +82,4 @@ This should give you a dictionary formated as follows:
 
 ## Examples
 
-Examples showing how to use the API is available in the [Examples/](Example/) folder.
+Examples showing how to use the API is available in the [Examples/](Examples/) folder.
