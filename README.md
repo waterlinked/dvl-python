@@ -29,7 +29,7 @@ Download or clone the repo.
 ```bash
 git clone https://github.com/waterlinked/dvl-serial.git
 ```
-Install the module (Note the period at the end of the command. The -e will let you edit the module as you wish.):
+Make sure you're in the folder with the setup.py file. Install the module (Note the period at the end of the command. The -e will let you edit the module as you wish.):
 ```bash
 pip install -e .
 ```
