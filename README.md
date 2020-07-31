@@ -25,11 +25,15 @@ You might also need additional permission to access the port on the system you'r
 
 ## Setup
 
-Download or clone the repo to the base of your project.
+Download or clone the repo.
 ```bash
-cd /project_location
 git clone https://github.com/waterlinked/dvl-serial.git
 ```
+Install the module (Note the period at the end of the command. The -e will let you edit the module as you wish.):
+```bash
+pip install -e .
+```
+
 
 ## Quick start
 
