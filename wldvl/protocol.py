@@ -128,11 +128,7 @@ class WlProtocolParser(object):
             #print("Is cmd")
             cmd = ord(cmd)
         if cmd in ALL_VALID:
-            if cmd in [CMD_QUEUE_PACKET, RESP_GOT_PACKET]:
-                # Payload is binary, so only split until payload
-                fragments = sentence.split(b',', 2)
-            else:
-                fragments = sentence.split(b',')
+            fragments = sentence.split(b',')
             options = None
             if len(fragments) > 1:
                 options = fragments[1:]
@@ -142,7 +138,7 @@ class WlProtocolParser(object):
         return None
 
     def doDict(self, cmd, direction, options):
-        x_options = {
+        result = {
             "time": float(options[0].decode('utf-8')),
             "vx": float(options[1].decode('utf-8')),
             "vy": float(options[2].decode('utf-8')),
@@ -151,13 +147,7 @@ class WlProtocolParser(object):
             "altitude": float(options[5].decode('utf-8')),
             "valid": True if options[6].decode('utf-8') == 'y' else False,
         }
-        theDict = {
-            'c': chr(cmd),
-            'dir': "CMD" if direction == DIR_CMD else "RESP",
-            'options': x_options,
-        }
-
-        return theDict
+        return result
 
 
 class WlDVLBase(object):
@@ -189,7 +179,7 @@ class WlDVLBase(object):
         contain = 0
         raw_data = ""
         while contain == 0:
-            raw_data = raw_data + self._serial.read(1).decode("utf-8")
+            raw_data = raw_data + self._iodev.read(1).decode("utf-8")
             if "\r\n" in raw_data:
                 contain = 1
         raw_data = oldString + raw_data
@@ -204,7 +194,8 @@ class WlDVLBase(object):
     def getPack(self):
         raw_data = 'False'
         while raw_data == 'False':
-            raw_data = self._serial.readline().decode("utf-8")
+            raw_data = self._iodev.readline().decode("utf-8")
+            print(raw_data)
 
         return raw_data
 
