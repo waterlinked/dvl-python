@@ -17,8 +17,10 @@ The library makes setting up a serial connection with the DVL simpler. Handles t
 
 * Python 3.*
 * crcmod
+* pyserial
+
 ```bash
-pip install crcmod
+pip install crcmod pyserial
 ```
 You might also need additional permission to access the port on the system you're running the script
 
@@ -40,7 +42,6 @@ Make sure you're in the folder with the setup.py file. Install the module (Note 
 pip install -e .
 ```
 
-
 ## Quick start
 
 Connecting to a dvl and reading data:
@@ -51,7 +52,7 @@ $ python3
 >>>  from wldvl import WlDVL
 >>>  dvl = WlDVL("/dev/ttyUSB0")
 >>>  dvl.read()
-{'c': 'x', 'dir': 'RESP', 'options': {'fom': 0.002, 'time': 40.57, 'vy': 0.004, 'vz': -0.002, 'vx': -0.003, 'valid': True, 'altitude': 0.14}}
+{'fom': 0.002, 'time': 40.57, 'vy': 0.004, 'vz': -0.002, 'vx': -0.003, 'valid': True, 'altitude': 0.14}
 ```
 
 ## Usage
@@ -64,12 +65,15 @@ A `WlDVL` object is initialized with the serial device port:
 from wldvl import WlDVL
 dvl = WlDVL("/dev/ttyUSB0")
 ```
+
 To retrieve data as a dictionary:
+
 ```py
 dvl.read()
 ```
 
 This should give you a dictionary formated as follows:
+
 ```python
 {
     'time': 40.75,
