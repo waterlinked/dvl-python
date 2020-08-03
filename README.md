@@ -1,4 +1,4 @@
-# dvl-serial Python library to serial interface with Water Linked DVLs
+# dvl-python Python library to serial interface with Water Linked DVLs
 Python code to serial interface with Water Linked DVLs.
 
 The library makes setting up a serial connection with the DVL simpler. Handles the parsing, checks validity and returns a Dictionary.
@@ -8,7 +8,7 @@ The library makes setting up a serial connection with the DVL simpler. Handles t
 * [Water Linked web site](https://waterlinked.com/dvl/)
 * [DVL A50 documentation](https://waterlinked.github.io/dvl/dvl-a50/)
 * [DVL protocol specification](https://waterlinked.github.io/dvl/dvl-protocol/)
-* [Repository](https://github.com/waterlinked/dvl-serial)
+* [Repository](https://github.com/waterlinked/dvl-python)
 
 ## Requirements
 
@@ -27,7 +27,7 @@ You might also need additional permission to access the port on the system you'r
 
 Download or clone the repo.
 ```bash
-git clone https://github.com/waterlinked/dvl-serial.git
+git clone https://github.com/waterlinked/dvl-python.git
 ```
 Make sure you're in the folder with the setup.py file. Install the module (Note the period at the end of the command. The -e will let you edit the module as you wish.):
 ```bash
