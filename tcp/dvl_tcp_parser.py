@@ -5,38 +5,51 @@ import csv
 import json
 import socket
 
+class _CSVWriter:
+    def __init__(self, csv_file, message_type):
+        self.csv_file = csv_file
+        self.csv_writer = self._csv_writer(csv_file, message_type)
+
+    @classmethod
+    def _csv_field_names(cls, message_type):
+        if message_type == "velocity":
+            return [
+                "time",
+                "vx",
+                "vy",
+                "vz",
+                "fom",
+                "altitude",
+                "velocity_valid",
+                "status" ]
+        return [
+            "ts",
+            "x",
+            "y",
+            "z",
+            "std",
+            "status" ]
+
+    @classmethod
+    def _csv_writer(cls, csv_file, message_type):
+        csv_writer = csv.DictWriter(
+            csv_file,
+            fieldnames = cls._csv_field_names(message_type),
+            extrasaction = "ignore",
+            delimiter = ',')
+        csv_writer.writeheader()
+        return csv_writer
+
+    def writerow(self, row):
+        self.csv_writer.writerow(row)
+
+    def flush(self):
+        self.csv_file.flush()
+
 def _start_dvl_socket(dvl_ip):
     dvl_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     dvl_socket.connect((dvl_ip, 16171))
     return dvl_socket
-
-def _csv_field_names(message_type):
-    if message_type == "velocity":
-        return [
-            "time",
-            "vx",
-            "vy",
-            "vz",
-            "fom",
-            "altitude",
-            "velocity_valid",
-            "status" ]
-    return [
-        "ts",
-        "x",
-        "y",
-        "z",
-        "std",
-        "status" ]
-
-def _csv_writer(csv_file, message_type):
-    csv_writer = csv.DictWriter(
-        csv_file,
-        fieldnames = _csv_field_names(message_type),
-        extrasaction = "ignore",
-        delimiter = ',')
-    csv_writer.writeheader()
-    return csv_writer
 
 def _type(message_type):
     if message_type == "velocity":
@@ -56,6 +69,7 @@ def _handle(message_type, message, csv_writer):
     print(json.dumps(report))
     if csv_writer is not None:
         csv_writer.writerow(report)
+        csv_writer.flush()
 
 def _process_messages(dvl_socket, message_type, csv_writer = None):
     buffer_size = 4096
@@ -105,7 +119,7 @@ def main():
             _process_messages(
                 _start_dvl_socket(arguments.ip),
                 report_type,
-                _csv_writer(csv_file, arguments.message_type))
+                _CSVWriter(csv_file, arguments.message_type))
     else:
         _process_messages(
             _start_dvl_socket(arguments.ip),
