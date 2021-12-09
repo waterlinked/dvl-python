@@ -19,8 +19,8 @@ def plot_2d(csv_file_path, plot_delay):
             if row:
                 row_values = row.split(',')
                 try:
-                    x.append(float(row_values[1]))
-                    y.append(float(row_values[2]))
+                    x.append(float(row_values[2]))
+                    y.append(float(row_values[3]))
                 except ValueError:
                     continue
                 line.set_xdata(x)
@@ -45,9 +45,9 @@ def plot_3d(csv_file_path, plot_delay):
             if row:
                 row_values = row.split(',')
                 try:
-                    x.append(float(row_values[1]))
-                    y.append(float(row_values[2]))
-                    z.append(float(row_values[3]))
+                    x.append(float(row_values[2]))
+                    y.append(float(row_values[3]))
+                    z.append(float(row_values[4]))
                 except ValueError:
                     continue
                 line.set_xdata(x)
