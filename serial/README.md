@@ -1,6 +1,6 @@
 # Python library for serial interface with Water Linked DVLs
 
-> :warning: This library is in development and is not yet production ready
+> :warning: This library is archived and no longer actively maintained.
 
 Python code to serial interface with Water Linked DVLs.
 
